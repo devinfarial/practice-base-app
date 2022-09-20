@@ -2,14 +2,16 @@ package com.mfarial.practicebaseapp.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
 public class RegisterRequest {
   @NotBlank
   @Size(min = 3, max = 20)

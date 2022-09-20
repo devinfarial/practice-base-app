@@ -1,9 +1,13 @@
 package com.mfarial.practicebaseapp.entities;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,9 +17,17 @@ import java.util.Set;
       @UniqueConstraint(columnNames = "username"),
       @UniqueConstraint(columnNames = "email") 
     })
-public class User {
+public class User implements UserDetails {
+  @SequenceGenerator(
+          name = "user_sequence",
+          sequenceName = "user_sequence",
+          allocationSize = 1
+  )
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(
+          strategy = GenerationType.SEQUENCE,
+          generator = "user_sequence"
+  )
   private Long id;
 
   @NotBlank
@@ -30,6 +42,10 @@ public class User {
   @NotBlank
   @Size(max = 120)
   private String password;
+
+  private Boolean locked = false;
+
+  private Boolean enabled = false;
 
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(  name = "user_roles", 
@@ -58,6 +74,26 @@ public class User {
     return username;
   }
 
+  @Override
+  public boolean isAccountNonExpired() {
+    return false;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return locked;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return enabled;
+  }
+
   public void setUsername(String username) {
     this.username = username;
   }
@@ -68,6 +104,11 @@ public class User {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return null;
   }
 
   public String getPassword() {
@@ -85,4 +126,7 @@ public class User {
   public void setRoles(Set<Role> roles) {
     this.roles = roles;
   }
+
+
+
 }
