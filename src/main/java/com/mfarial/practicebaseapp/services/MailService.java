@@ -6,10 +6,8 @@ import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Service;
 
-import java.util.Properties;
-
 @Service
-public class MailSenderImpl{
+public class MailService {
 
     public void sendEmail(String token, String email) throws EmailException {
         HtmlEmail mail = new HtmlEmail();

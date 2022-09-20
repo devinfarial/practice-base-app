@@ -2,11 +2,10 @@ package com.mfarial.practicebaseapp.controllers;
 
 import com.mfarial.practicebaseapp.dto.request.LoginRequest;
 import com.mfarial.practicebaseapp.dto.request.RegisterRequest;
-import com.mfarial.practicebaseapp.dto.request.VerifiyRequest;
 import com.mfarial.practicebaseapp.dto.response.BaseResponse;
 import com.mfarial.practicebaseapp.dto.response.LoginResponse;
 import com.mfarial.practicebaseapp.repositories.UserRepository;
-import com.mfarial.practicebaseapp.services.MailSenderImpl;
+import com.mfarial.practicebaseapp.services.MailService;
 import com.mfarial.practicebaseapp.services.RegistrationService;
 import com.mfarial.practicebaseapp.services.UserDetailsImpl;
 import com.mfarial.practicebaseapp.utils.JwtUtils;
@@ -20,9 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,7 +40,7 @@ public class AuthController {
     RegistrationService registrationService;
 
     @Autowired
-    MailSenderImpl mailSender;
+    MailService mailSender;
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
