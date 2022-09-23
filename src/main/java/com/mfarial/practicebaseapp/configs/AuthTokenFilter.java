@@ -1,6 +1,6 @@
 package com.mfarial.practicebaseapp.configs;
 
-import com.mfarial.practicebaseapp.services.UserDetailsServiceImpl;
+import com.mfarial.practicebaseapp.services.UserService;
 import com.mfarial.practicebaseapp.utils.JwtUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
   private JwtUtils jwtUtils;
 
   @Autowired
-  private UserDetailsServiceImpl userDetailsService;
+  private UserService userDetailsService;
 
   private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 

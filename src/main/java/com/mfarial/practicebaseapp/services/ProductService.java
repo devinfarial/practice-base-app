@@ -15,7 +15,8 @@ public class ProductService {
 
     public void create(CreateProductRequest request){
         Product product = new Product();
-        product.setFoodName(request.getProductName());
+        product.setFoodName(request.getFoodName());
+        product.setQuantity(request.getQuantity());
         productRepository.save(product);
     }
 
@@ -24,5 +25,10 @@ public class ProductService {
         product.setFoodName(request.getFoodName());
         product.setQuantity(request.getQuantity());
         productRepository.save(product);
+    }
+
+    public void delete(Long id){
+        Product product = productRepository.findById(id).orElseThrow();
+        productRepository.delete(product);
     }
 }
